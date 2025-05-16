@@ -32,5 +32,6 @@ jobs:
         run: npm run build -- --configuration production
 
       - name: Deploy to Cloudflare Pages
-        run:  npx wrangler pages deploy dist/cloudflare-pages --project-name=$PROJECT_NAME
+        run:  npx wrangler pages deploy dist/cloudflare-pages --project-name=$CLOUDFLARE_PROJECT_NAME
+
 
