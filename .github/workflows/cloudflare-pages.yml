@@ -2,11 +2,10 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [main]  # Change this to your default branch if it's different
+    branches: [main]  # Change if your default branch is different
   pull_request:
-    branches: [main]  # Change this to your default branch if it's different
+    branches: [main]
 
-# Allow the action to create and approve deployments
 permissions:
   contents: read
   deployments: write
@@ -32,6 +31,8 @@ jobs:
         run: npm run build -- --configuration production
 
       - name: Deploy to Cloudflare Pages
-        run:  npx wrangler pages deploy dist/cloudflare-pages --project-name=$CLOUDFLARE_PROJECT_NAME
-
+        run: npx wrangler pages deploy dist/cloudflare-pages --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
